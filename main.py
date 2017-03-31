@@ -16,7 +16,7 @@ logger.addHandler(handler)
 filename = open_csv.filename
 
 @app.route('/user_init/')
-def start_init():
+def start_user_init():
     user_name = request.args.get('user_name')
     major = request.args.get('major')
     minor = request.args.get('minor')
@@ -25,8 +25,8 @@ def start_init():
 
     isSuccess = False
     with open_csv.open_csv(filename=filename, opentype='a') as fa:
-        isSuccess = func.user_init(user_info= \
-                [user_name, major, minor, notice, atnd], fa=fa)
+        isSuccess = func.user_init(
+                user_info=[user_name, major, minor, notice, atnd], fa=fa)
     if isSuccess:
         return 'user_init: successed'
     else:
@@ -40,7 +40,8 @@ def start_update_beacon():
 
     isSuccess = False
     with open_csv.open_csv(filename=filename, opentype='r') as fr:
-        isSuccess = func.update_info(user_info=[user_name, major, minor], fr=fr, change_list=[1, 2])
+        isSuccess = func.update_info(
+                user_info=[user_name, major, minor], fr=fr, change_list=[1, 2])
     if isSuccess:
         return 'update_beacon: successed'
     else:
@@ -53,7 +54,8 @@ def start_update_notice():
 
     isSuccess = False
     with open_csv.open_csv(filename=filename, opentype='r') as fr:
-        isSuccess = func.update_info(user_info=[user_name, notice], fr=fr, change_list=[3])
+        isSuccess = func.update_info(
+                user_info=[user_name, notice], fr=fr, change_list=[3])
     if isSuccess:
         return 'update_notice: successed'
     else:
@@ -66,7 +68,8 @@ def start_update_attendance():
 
     isSuccess = False
     with open_csv.open_csv(filename=filename, opentype='r') as fr:
-        isSuccess = func.update_info(user_info=[user_name, atnd], fr=fr, change_list=[4])
+        isSuccess = func.update_info(
+                user_info=[user_name, atnd], fr=fr, change_list=[4])
     if isSuccess:
         return 'update_attendance: successed'
     else:
@@ -85,3 +88,4 @@ def start_get_data():
 if __name__ == '__main__':
     app.run(debug=True)
     # app.run(host='0.0.0.0', port=8080)
+
