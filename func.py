@@ -42,6 +42,7 @@ def update_info(user_info=None, fr=None, change_list=None):
     """
     if None in user_info:
         logger.debug("update_info error: user_info not enough")
+        logger.debug(user_info)
         return False
     elif fr is None:
         logger.debug("update_info error: None file")
@@ -53,15 +54,17 @@ def update_info(user_info=None, fr=None, change_list=None):
         reader = open_csv.csv.reader(fr)
         res = list()
 
+        isSuccess = False
         for i, row in enumerate(reader):
             insert = row
             if user_info[0] in row:
+                isSuccess = True
                 for j, change in enumerate(change_list):
                     insert[change] = user_info[j + 1]
-            else:
-                logger.debug("update_info error: None user")
-                return False
             res.append(insert)
+        if not isSuccess:
+            logger.debug("update_info error: None user")
+            return False
 
         fr.close()
         fw = open_csv.open_csv(filename, 'w')
