@@ -10,7 +10,7 @@ def filename_check(filename=None):
     :rtype: bool
     """
     if filename is None:
-        print("None file")
+        logger.debug("None file")
         return False
     return True
 
