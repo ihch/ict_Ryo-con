@@ -1,6 +1,13 @@
 #! /usr/bin/python3
 # -*- coding:utf-8 -*-
 import open_csv
+from logging import getLogger, StreamHandler, DEBUG
+
+logger = getLogger(__name__)
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.setLevel(DEBUG)
+logger.addHandler(handler)
 
 filename = open_csv.filename
 user_data = ['user_name', 'major', 'minor', 'notice', 'atnd']
