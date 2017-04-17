@@ -22,6 +22,7 @@ def start_user_init():
     minor = request.args.get('minor')
     notice = request.args.get('notice')
     atnd = request.args.get('atnd')
+    pict = request.args.get('pict')
 
     isSuccess = False
     with open_csv.open_csv(filename=filename, opentype='a') as fa:
@@ -74,6 +75,20 @@ def start_update_attendance():
         return 'update_attendance: successed'
     else:
         return 'update_attendance: filed'
+
+@app.route('/update/picture/')
+def start_update_picture():
+    user_name = request.args.get('user_name')
+    pict = request.args.get('pict')
+
+    isSuccess = False
+    with open_csv.open_csv(filename=filename, opentype='r') as fr:
+        isSuccess = func.update_info(
+                user_info=[user_name, pict], fr=fr, change_list=[5])
+    if isSuccess:
+        return 'update_picture: successed'
+    else:
+        return 'update_picture: filed'
 
 @app.route('/get_data/')
 def start_get_data():
