@@ -1,7 +1,7 @@
 #! /usr/bin/python3
-# -*- coding:utf-8 -*-
-import open_csv
+import csv
 from logging import getLogger, StreamHandler, DEBUG
+import open_csv
 
 logger = getLogger(__name__)
 handler = StreamHandler()
@@ -9,8 +9,9 @@ handler.setLevel(DEBUG)
 logger.setLevel(DEBUG)
 logger.addHandler(handler)
 
-filename = open_csv.filename
-user_data = ['user_name', 'major', 'minor', 'notice', 'atnd']
+FILENAME = open_csv.FILENAME
+USER_DATA = ['user_name', 'major', 'minor', 'notice', 'atnd']
+
 
 def user_init(user_info=None, fa=None):
     """
@@ -20,16 +21,17 @@ def user_init(user_info=None, fa=None):
     :rtype: None
     """
     if None in user_info:
-        logger.debug("user_init error: user_info not enough {}"
-            .format([user_data[i] for i, x in enumerate(user_info) if x is None]))
+        logger.debug("user_init error: user_info not enough {}".format(
+                [USER_DATA[i] for i, x in enumerate(user_info) if x is None]))
         return False
-    elif fa == None:
+    elif fa is None:
         logger.debug("user_init error: file is None")
         return False
     else:
-        writer = open_csv.csv.writer(fa, lineterminator='\n')
+        writer = csv.writer(fa, lineterminator='\n')
         writer.writerow(user_info)
         return True
+
 
 def update_info(user_info=None, fr=None, change_list=None):
     """
@@ -51,7 +53,7 @@ def update_info(user_info=None, fr=None, change_list=None):
         logger.debug("update_info error: None change_list")
         return False
     else:
-        reader = open_csv.csv.reader(fr)
+        reader = csv.reader(fr)
         res = list()
 
         isSuccess = False
@@ -67,20 +69,20 @@ def update_info(user_info=None, fr=None, change_list=None):
             return False
 
         fr.close()
-        fw = open_csv.open_csv(filename, 'w')
-        writer = open_csv.csv.writer(fw, lineterminator='\n')
+        fw = open_csv.open_csv(FILENAME, 'w')
+        writer = csv.writer(fw, lineterminator='\n')
         writer.writerows(res)
         fw.close()
         return True
+
 
 def get_data(fr=None):
     if fr is None:
         logger.debug("get_data error: None file")
         return None
     else:
-        reader = open_csv.csv.reader(fr)
+        reader = csv.reader(fr)
         res = list()
         for row in reader:
             res.append(row)
         return res
-
