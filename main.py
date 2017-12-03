@@ -15,6 +15,7 @@ logger.addHandler(handler)
 
 filename = open_csv.filename
 
+
 @app.route('/user_init/')
 def start_user_init():
     user_name = request.args.get('user_name')
@@ -32,6 +33,7 @@ def start_user_init():
     else:
         return 'user_init: filed'
 
+
 @app.route('/update/beacon/')
 def start_update_beacon():
     user_name = request.args.get('user_name')
@@ -47,6 +49,7 @@ def start_update_beacon():
     else:
         return 'update_beacon: filed'
 
+
 @app.route('/update/notice/')
 def start_update_notice():
     user_name = request.args.get('user_name')
@@ -60,6 +63,7 @@ def start_update_notice():
         return 'update_notice: successed'
     else:
         return 'update_notice: filed'
+
 
 @app.route('/update/attendance/')
 def start_update_attendance():
@@ -75,6 +79,7 @@ def start_update_attendance():
     else:
         return 'update_attendance: filed'
 
+
 @app.route('/get_data/')
 def start_get_data():
     res = None
@@ -84,6 +89,7 @@ def start_get_data():
         return 'null'
     else:
         return json.dumps({'data':res})
+
 
 if __name__ == '__main__':
     app.run(debug=True)
