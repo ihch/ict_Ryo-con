@@ -1,6 +1,4 @@
 #! /usr/bin/python3
-# -*- coding:utf-8 -*-
-import csv
 from logging import getLogger, StreamHandler, DEBUG
 
 logger = getLogger(__name__)
@@ -9,7 +7,8 @@ handler.setLevel(DEBUG)
 logger.setLevel(DEBUG)
 logger.addHandler(handler)
 
-filename = 'data'
+FILENAME = 'data'
+
 
 def filename_check(filename=None):
     """
@@ -21,6 +20,7 @@ def filename_check(filename=None):
         return False
     return True
 
+
 def open_csv(filename=None, opentype='r'):
     """
     :type filename: str
@@ -30,7 +30,6 @@ def open_csv(filename=None, opentype='r'):
         append  -> 'a'
     :rtype: fileobject
     """
-    if not filename_check(filename=filename):
+    if not filename_check(filename=FILENAME):
         return
     return open(filename+'.csv', opentype)
-
